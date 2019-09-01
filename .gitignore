@@ -1,0 +1,8 @@
+# Python
+
+.venv/
+
+# Project Files
+
+config.yml
+discord.log
