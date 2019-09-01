@@ -1,8 +1,10 @@
+import yaml
 import discord
 import logging
 
-# Parameters
-PREFIX = "!"
+# Config
+config = yaml.load(open('config.yml', 'r'))
+PREFIX = config['prefix']
 
 # Logging
 logger = logging.getLogger('discord')
@@ -11,6 +13,7 @@ handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w'
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
 
+# Discord bot
 client = discord.Client()
 
 @client.event
@@ -25,4 +28,4 @@ async def on_message(message):
     if message.content.startswith(PREFIX + 'hello'):
         await message.channel.send('Hello, {0}!'.format(message.author.mention))
 
-# client.run('token')
+client.run(config['token'])
