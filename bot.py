@@ -45,6 +45,9 @@ async def on_message(message):
 	
 	if content.startswith('hello'):
 		await message.channel.send('Hello, {0}!'.format(message.author.mention))
+	
+	if content.startswith('parse'):
+		await message.channel.send('Get parsed! {0}'.format(args))
 
 # Run the discord bot
 client.run(config['token'])
