@@ -34,6 +34,8 @@ async def on_message(message):
 	
 	if message.tts:
 		await message.channel.send('/!\ Warning: Use of TTS by {0}.'.format(message.author.mention))
+	if message.mention_everyone:
+		await message.channel.send('/!\ Warning: {0} mentioned everyone.'.format(message.author.mention))
 
 	content = message.content
 	if content.startswith(PREFIX):
