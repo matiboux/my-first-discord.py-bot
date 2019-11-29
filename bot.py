@@ -54,7 +54,7 @@ async def on_message(message):
 	if argv[0] == 'vote':
 		m = await message.channel.send('Vote proposed by {0}: {1}'.format(message.author.mention, args))
 		# await m.add_reaction("✅");
-		# await m.add_reaction("✅");
+		# await m.add_reaction("❎");
 	
 	if content.startswith('info'):
 		# Retrieves information about this guild.
