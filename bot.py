@@ -1,9 +1,16 @@
-import yaml
 import discord
 import logging
+import yaml
+
+try:
+	from yaml import CLoader as Loader, CDumper as Dumper
+except ImportError:
+	from yaml import Loader, Dumper
+
+from cliparser import parsecommand
 
 # Config
-config = yaml.load(open('config.yml', 'r'))
+config = yaml.load(open('config.yml', 'r'), Loader=Loader)
 PREFIX = config['prefix']
 
 # Logging
@@ -18,14 +25,26 @@ client = discord.Client()
 
 @client.event
 async def on_ready():
-    print('We have logged in as {0.user}'.format(client))
+	print('We have logged in as {0.user}'.format(client))
 
 @client.event
 async def on_message(message):
-    if message.author == client.user:
-        return
+	if message.author == client.user:
+		return  # Ignores messages of myself
+	
+	if message.tts:
+		await message.channel.send('/!\ Warning: Use of TTS by {0}.'.format(message.author.mention))
 
-    if message.content.startswith(PREFIX + 'hello'):
-        await message.channel.send('Hello, {0}!'.format(message.author.mention))
+	content = message.content
+	if content.startswith(PREFIX):
+		content = content[len(PREFIX):]
+	else:
+		return  # Not a command.
+	
+	args = parsecommand(content)
+	
+	if content.startswith('hello'):
+		await message.channel.send('Hello, {0}!'.format(message.author.mention))
 
+# Run the discord bot
 client.run(config['token'])
