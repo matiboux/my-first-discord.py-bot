@@ -50,6 +50,11 @@ async def on_message(message):
 	
 	if content.startswith('parse'):
 		await message.channel.send('Get parsed! {0}'.format(args))
+	
+	if argv[0] == 'vote':
+		m = await message.channel.send('Vote proposed by {0}: {1}'.format(message.author.mention, args))
+		# await m.add_reaction("✅");
+		# await m.add_reaction("✅");
 
 # Run the discord bot
 client.run(config['token'])
