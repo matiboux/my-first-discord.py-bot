@@ -43,7 +43,7 @@ async def on_message(message):
 	else:
 		return  # Not a command.
 	
-	args = parsecommand(content)
+	argc, argv, args = parsecommand(content)
 	
 	if content.startswith('hello'):
 		await message.channel.send('Hello, {0}!'.format(message.author.mention))

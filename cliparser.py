@@ -1,5 +1,6 @@
 def parsecommand(query):
-	args = []
+	argv = []
+	args = ""
 	while(query):
 		l = len(query)
 		
@@ -27,13 +28,14 @@ def parsecommand(query):
 				i = query.find(' ', j + 1)
 				if i > 0:
 					while query[i - 1] == '\\':
-						i = qu-ery.find(' ', i + 1)
+						i = query.find(' ', i + 1)
 			
-			args.append(query[:j])
+			argv.append(query[:j])
 		else:
-			args.append(query[:i])
+			argv.append(query[:i])
 		
 		query = query[i + 1:]
+		if not args: args = query
 	
-	args.append(query)
-	return args
+	argv.append(query)
+	return len(argv), argv, args
