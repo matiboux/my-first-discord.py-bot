@@ -72,6 +72,31 @@ async def on_message(message):
 		e.add_field(name='Region', value=guild.region.name)
 		e.add_field(name='Icon URL', value=guild.icon_url or 'This guild has no icon.')
 		await message.channel.send(embed=e)
+	
+	if content.startswith('permissions'):
+		w = { True: 'Yes', False: 'No' }
+		
+		# Store the channel
+		channel = message.channel
+		p = channel.permissions_for(message.author)
+		e = discord.Embed(type='rich', color=discord.Colour.from_rgb(240, 160, 80))
+		e.add_field(name='Read Messages', value=w[p.read_messages])
+		e.add_field(name='Send Messages', value=w[p.send_messages])
+		e.add_field(name='TTS', value=w[p.send_tts_messages])
+		e.add_field(name='Manage Messages', value=w[p.manage_messages])
+		e.add_field(name='Embed Links', value=w[p.embed_links])
+		e.add_field(name='Attach Files', value=w[p.attach_files])
+		e.add_field(name='Read Message History', value=w[p.read_message_history])
+		e.add_field(name='Mention Everyone', value=w[p.mention_everyone])
+		e.add_field(name='Change Nickanme', value=w[p.change_nickname])
+		e.add_field(name='Manage Nicknames', value=w[p.manage_nicknames])
+		e.add_field(name='Manage Roles', value=w[p.manage_roles])
+		e.add_field(name='Manage Emoji', value=w[p.manage_emojis])
+		e.add_field(name='Manage Channels', value=w[p.manage_channels])
+		e.add_field(name='Kick Members', value=w[p.kick_members])
+		e.add_field(name='Ban Members', value=w[p.ban_members])
+		e.add_field(name='Administrator', value=w[p.administrator])
+		await message.channel.send(embed=e)
 
 # Run the discord bot
 client.run(config['token'])
