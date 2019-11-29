@@ -55,6 +55,23 @@ async def on_message(message):
 		m = await message.channel.send('Vote proposed by {0}: {1}'.format(message.author.mention, args))
 		# await m.add_reaction("✅");
 		# await m.add_reaction("✅");
+	
+	if content.startswith('info'):
+		# Retrieves information about this guild.
+		guild = message.guild
+		e = discord.Embed(type='rich', color=discord.Colour.from_rgb(80, 160, 240))
+		e.set_thumbnail(url=guild.icon_url)
+		e.add_field(name='Name', value=guild.name)
+		e.add_field(name='ID', value=guild.id)
+		e.add_field(name='Created at', value=guild.created_at.strftime('%Y-%m-%d %H:%M:%S'))
+		e.add_field(name='Owner', value=guild.owner)
+		e.add_field(name='Members', value=guild.member_count)
+		e.add_field(name='Channels', value=len(guild.channels))
+		# e.add_field(name='Roles', value=len(guild.role_hierarchy)-1) # Remove @everyone
+		e.add_field(name='Emoji', value=len(guild.emojis))
+		e.add_field(name='Region', value=guild.region.name)
+		e.add_field(name='Icon URL', value=guild.icon_url or 'This guild has no icon.')
+		await message.channel.send(embed=e)
 
 # Run the discord bot
 client.run(config['token'])
