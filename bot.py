@@ -45,10 +45,10 @@ async def on_message(message):
 	
 	argc, argv, args = parsecommand(content)
 	
-	if content.startswith('hello'):
+	if argv[0] == 'hello':
 		await message.channel.send('Hello, {0}!'.format(message.author.mention))
 	
-	if content.startswith('parse'):
+	if argv[0] == 'parse':
 		await message.channel.send('Get parsed! {0}'.format(args))
 	
 	if argv[0] == 'vote':
@@ -56,7 +56,7 @@ async def on_message(message):
 		# await m.add_reaction("✅");
 		# await m.add_reaction("❎");
 	
-	if content.startswith('info'):
+	if argv[0] == 'info':
 		# Retrieves information about this guild.
 		guild = message.guild
 		e = discord.Embed(type='rich', color=discord.Colour.from_rgb(80, 160, 240))
@@ -73,7 +73,7 @@ async def on_message(message):
 		e.add_field(name='Icon URL', value=guild.icon_url or 'This guild has no icon.')
 		await message.channel.send(embed=e)
 	
-	if content.startswith('permissions'):
+	if argv[0] == 'permissions':
 		w = { True: 'Yes', False: 'No' }
 		
 		# Store the channel
